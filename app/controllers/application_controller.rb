@@ -20,6 +20,7 @@ class ApplicationController < Sinatra::Base
   	user = User.new(username: params[:username], password: params[:password])
 
   	if user.save
+  	  current_user = user.id
   	  redirect '/projects'
   	else
   	  redirect '/signup'

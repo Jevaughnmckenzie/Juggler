@@ -22,7 +22,7 @@ describe ApplicationController do
       expect(last_response.body).to include("Welcome to Juggler")
     end
 
-    
+
   end
 
   describe "Signup Page" do
@@ -89,9 +89,12 @@ describe ApplicationController do
       post '/signup', params
       session = {}
       session[:user_id] = user2.id
+      
+        # binding.pry
 
       get '/signup'
 
+      binding.pry
       expect(last_response.location).to include('/projects')
     end
   end
