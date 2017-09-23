@@ -15,4 +15,16 @@ class ApplicationController < Sinatra::Base
   get '/signup' do
   	erb :'registrations/signup'
   end
+
+  post '/signup' do
+  	user = User.new(username: params[:username], password: params[:password])
+
+  	if user.save
+  	  redirect '/projects'
+  	else
+  	  redirect '/signup'
+  	end
+
+  	
+  end
 end
