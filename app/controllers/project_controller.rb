@@ -3,7 +3,7 @@ class ProjectController < ApplicationController
   
   get '/projects' do
   	if logged_in?
-  	  user = User.find(current_user)
+  	  user = current_user
 
       @active_projects = user.projects.select { |project| project.active? }
       @inactive_projects = user.projects.reject { |project| project.active? }
@@ -12,6 +12,15 @@ class ProjectController < ApplicationController
       erb :'projects/index'
     else
   	  redirect '/'
+    end
+  end
+
+  get '/projects/new' do
+  	if logged_in?
+  		
+      erb :'projects/new'
+    else
+    	redirect '/'
     end
   end
 
