@@ -43,13 +43,14 @@ class ApplicationController < Sinatra::Base
   post '/login' do
     user = User.find_by(username: params[:username])
 
-    if user.authenticate(password: params[:password])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
 
       redirect '/projects'
     else
-      # @error = user.errors.message
-      redirect '/login'
+      @login_error = "Username or password is incorrect"
+
+      erb :'sessions/login'
     end
   end
   
