@@ -1,0 +1,19 @@
+<label for="name">Project Name: <%= @project.name %></label>
+
+	<br>
+
+	<label>Status:</label>
+
+	<% if @project.active? %>
+		<p>Active</p>
+	<% else %>
+		<p>Inactive</p>
+	<% end %>
+
+	<!-- <label for="status">Status</label>
+	<input type="radio" name="active">
+
+	<label for="inactive">Inactive</label>
+	<input type="radio" name="inactive">
+
+	<input type="submit" value="Create Project"> -->
