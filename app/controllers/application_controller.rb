@@ -37,7 +37,13 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/login' do
-    erb :'sessions/login'
+    if logged_in?
+      # binding.pry
+      redirect '/projects'
+    else
+      erb erb :'sessions/login'
+    end
+    
   end
 
   post '/login' do
