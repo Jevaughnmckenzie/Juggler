@@ -10,5 +10,7 @@ class ProjectController < ApplicationController
   	  redirect '/'
     end
   end
+
+  
   
 end
