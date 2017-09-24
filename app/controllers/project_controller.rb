@@ -56,7 +56,7 @@ class ProjectController < ApplicationController
     end
   end
 
-  patch '/projects/:id/edit' do
+  patch '/projects/:id' do
   	project = Project.find(params[:id])
 
   	project.name = params[:name]
@@ -69,5 +69,7 @@ class ProjectController < ApplicationController
   		erb :'projects/edit'
   	end
   end
+
+
   
 end
