@@ -1,3 +1,4 @@
+require './config/environment'
 class ProjectController < ApplicationController
   
   get '/projects' do

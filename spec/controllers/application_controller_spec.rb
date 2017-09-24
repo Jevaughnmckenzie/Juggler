@@ -79,24 +79,31 @@ describe ApplicationController do
       expect(last_response.location).to include("/signup")
     end
 
-    # it 'does not let a logged in user see the sign up page' do
-    #   user2 = User.create(username: "user2", password: "password")
-    #   params = {
-    #   	:username => "user2",
-    #   	:password => "password"
-    #   }
+    it 'does not let a logged in user see the sign up page' do
+      user2 = User.create(username: "user2", password: "password")
+      params = {
+      	:username => "user2",
+      	:password => "password"
+      }
 
-    #   post '/signup', params
-    #   session = {}
-    #   session[:user_id] = user2.id
-      
-    #     # binding.pry
-
-    #   get '/signup'
-
-    #   binding.pry
-    #   expect(page.current_path).to include('/projects')
-    # end
+      post '/signup', params
+      session = {}
+      session[:user_id] = user2.id
+      get '/signup'    
+      expect(last_response.location).to include("/projects")
+    end
   end
+
+  # describe "Log In Page" do
+  # 	it "loads the log in page" do
+  # 		get '/login' 
+  # 		expect(last_response.status).to eq(200)
+  # 	end
+  # 	it "loads the project index after logging in" do
+  # 		fil
+  # 	end
+  # 	it "does not let a logged in user view the log in page" do
+  # 	end
+  # end
 
 end
