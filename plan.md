@@ -17,3 +17,13 @@ Projects
     - tasks have a name
     - tasks have a time allocation
     - only active projects can have time allocated to tasks
+
+ Index Page
+ - lists all the projects by name
+   - seperates projects into lists of active and inactive
+   - all projects have 'view', 'edit', and 'delete' buttons to the side of name
+     - active projects 
+       - are at the top
+     -  inactive projects
+       - are below active projects
+
