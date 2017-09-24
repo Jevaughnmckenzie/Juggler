@@ -10,6 +10,16 @@
 		<p>Inactive</p>
 	<% end %>
 
+	<br>
+
+	<form action="/projects/<%= @project.id %>/edit" method="GET">
+		<input type="submit" value="Edit">		
+	</form>
+
+	<form action="/projects/<%= @project.id %>/delete" method="POST">
+		<input type="hidden" id="hidden" name="_method" value="delete">
+		<input type="submit" value="Delete">
+	</form>
 	<!-- <label for="status">Status</label>
 	<input type="radio" name="active">
 
