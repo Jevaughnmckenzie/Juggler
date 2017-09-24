@@ -1,8 +1,18 @@
 Hello World! Look at my projects!
 
-<ul>
-	<% @project.active %>
+<h3>Active Projects</h3>
 
+<ul>
+	<% @active_projects.each do |project| %>
+      <li><%= project.name %></li>
+	<% end %>
+</ul>
+
+<h3>Inactive Projects</h3>
+
+<ul>
+	<% @inactive_projects.each do |project| %>
+      <li><%= project.name %></li>
 	<% end %>
 </ul>
 
