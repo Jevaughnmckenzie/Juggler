@@ -24,6 +24,16 @@ class ProjectController < ApplicationController
     end
   end
 
+  post '/projects' do
+  	user = current_user
+    
+  	params[:active] == "on" ? active_status = true : active_status = false
 
+  	user.projects.build(name: params[:name], active?: active_status)
+
+  	user.projects.last.save
+
+  	redirect '/projects'
+  end
   
 end
