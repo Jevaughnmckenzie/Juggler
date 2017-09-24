@@ -53,6 +53,12 @@ class ApplicationController < Sinatra::Base
       erb :'sessions/login'
     end
   end
+
+  post '/logout' do
+    session.clear
+
+    redirect '/'
+  end
   
 
   helpers do 
