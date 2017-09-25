@@ -16,6 +16,13 @@
 		<% end %>
 	</ul>
 
+	<a href="/projects/<%= @project.id %>/tasks/new">Add Task</a>
+
+<!-- 	<form action="/tasks/new" method="POST">
+		<input type="hidden" name="project_id" value="<%= @project.id %>">
+		<input type="submit" value="Add Task">
+	</form> -->
+
 	<form action="/projects/<%= @project.id %>/edit" method="GET">
 		<input type="submit" value="Edit">		
 	</form>

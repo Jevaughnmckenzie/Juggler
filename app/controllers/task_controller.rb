@@ -1,6 +1,7 @@
 class TaskController < ApplicationController
-	get '/tasks/new' do
+	get '/projects/:project_id/tasks/new' do
   	if logged_in?
+  		# binding.pry
   		
       erb :'tasks/new'
     else
@@ -8,28 +9,28 @@ class TaskController < ApplicationController
     end
   end
 
-  post '/tasks' do
+  post '/projects/:project_id/tasks' do
   	user = 
 
   	user.tasks.build(name: params[:name], active_status: active_status)
 
   	user.tasks.last.save
 
-  	redirect '/tasks'
+  	redirect '/projects/:project_id'
   end
 
-  get '/tasks/:id' do
-  	if logged_in?
+  # get '/projects/:project_id/tasks/:id' do
+  # 	if logged_in?
   		
-  		@project = Project.find(params[:id])
+  # 		@project = Project.find(params[:id])
 
-      erb :'tasks/show'
-    else
-    	redirect '/'
-    end
-  end
+  #     erb :'tasks/show'
+  #   else
+  #   	redirect '/'
+  #   end
+  # end
 
-  get '/tasks/:id/edit' do
+  get '/projects/:project_id/tasks/:id/edit' do
   	if logged_in?
   		@project = Project.find(params[:id])
       erb :'tasks/edit'
@@ -38,22 +39,10 @@ class TaskController < ApplicationController
     end
   end
 
-  patch '/tasks/:id' do
+  patch '/projects/:project_id/tasks/:id' do
   	project = Project.find(params[:id])
 
   	project.name = params[:name]
-  	binding.pry
-  	if params[:status] == "active"
-  		project.active_status = true 
-  	elsif params[:status] == "inactive"
-  		project.active_status = false
-  	end
-
-  	# if params[:status] == "on"
-  	# 	project.active_status = true
-  	# else
-  	# 	project.active_status = false
-  	# end
 
   	if project.save
   		redirect "/tasks/#{project.id}"
@@ -63,11 +52,11 @@ class TaskController < ApplicationController
   	end
   end
 
-  delete '/tasks/:id/delete' do
+  delete '/projects/:project_id/tasks/:id/delete' do
   	project = Project.find(params[:id])
   	project.delete
 
-  	redirect '/tasks'
+  	redirect '/projects/:project_id'
   end
 
 end
