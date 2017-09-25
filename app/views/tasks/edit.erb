@@ -1,0 +1,12 @@
+<h2>Edit Task</h2>
+
+<form action="/projects/<%= @project.id %>/tasks/<%= @task.id %>" method="POST">
+	<input type="hidden" id="hidden" name="_method" value="patch">
+	<label for="task_name">Task</label>
+	<input type="text" name="task_name" value="<%= @task.name %>">
+
+	<label for="time_allocation">Time Allocation</label>
+	<input type="text" name="time_allocation" value="<%= @task.time_allocation %>">
+
+	<input type="submit" name="Edit Task">
+</form>
