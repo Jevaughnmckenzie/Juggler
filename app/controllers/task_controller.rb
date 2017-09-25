@@ -59,8 +59,8 @@ class TaskController < ApplicationController
   end
 
   delete '/projects/:project_id/tasks/:id/delete' do
-  	project = Project.find(params[:id])
-  	project.delete
+  	task = Task.find(params[:id])
+  	task.delete
 
   	redirect "/projects/#{params[:project_id]}"
   end

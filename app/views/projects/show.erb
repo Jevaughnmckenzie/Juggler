@@ -15,7 +15,11 @@
 			<li>
 				<%= task.name %>
 					<form action="/projects/<%= @project.id %>/tasks/<%= task.id %>/edit" method="GET">
-						<input type="submit" value="Edit">
+						<input type="submit" value="Edit Task">
+					</form>
+					<form action="/projects/<%= @project.id %>/tasks/<%= task.id %>/delete" method="POST">
+						<input type="hidden" id="hidden" name="_method" value="delete">
+						<input type="submit" value="Delete Task">
 					</form>
 			</li>
 		<% end %>
