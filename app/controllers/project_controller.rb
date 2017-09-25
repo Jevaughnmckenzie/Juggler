@@ -88,6 +88,24 @@ class ProjectController < ApplicationController
   	redirect '/projects'
   end
 
+	helpers do 
+		def project_edit_button
+			<<-HTML
+				<form action="/projects/<%= project.id %>/edit" method="GET">
+					<input type="submit" value="Edit">
+				</form>
+			HTML
+		end
+
+		def project_delete_button
+			<<-HTML
+				<form action="/projects/<%= project.id %>/delete" method="POST">
+					<input type="hidden" id="hidden" name="_method" value="delete">
+					<input type="submit" value="Delete">
+				</form>
+			HTML
+		end
+	end
 
   
 end

@@ -8,7 +8,11 @@ Hello World! Look at my projects!
 
 <ul>
 	<% @active_projects.each do |project| %>
-      <li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
+      <li>
+      	<a href="/projects/<%= project.id %>"><%= project.name %></a>
+				<%= project_edit_button %>
+				<%= project_delete_button %>
+      </li>
 	<% end %>
 </ul>
 
@@ -16,7 +20,11 @@ Hello World! Look at my projects!
 
 <ul>
 	<% @inactive_projects.each do |project| %>
-      <li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
+      <li>
+      	<a href="/projects/<%= project.id %>"><%= project.name %></a>
+      	<%= project_edit_button %>
+				<%= project_delete_button %>
+      </li>
 	<% end %>
 </ul>
 
