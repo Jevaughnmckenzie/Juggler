@@ -12,16 +12,20 @@
 
 	<ul>
 		<% @project.tasks.each do |task| %>
-			<li><a href="/tasks/<%= task.id %>"><%= task.name %></a></li>
+			<li>
+				<a href="/tasks/<%= task.id %>"><%= task.name %></a>
+					<form action="/projects/<%= @project.id %>/tasks/<%= task.id %>/edit" method="GET">
+						<input type="submit" value="Edit">
+					</form>
+			</li>
 		<% end %>
 	</ul>
 
-	<a href="/projects/<%= @project.id %>/tasks/new">Add Task</a>
+	<!-- <a href="/projects/<%= @project.id %>/tasks/new">Add Task</a> -->
 
-<!-- 	<form action="/tasks/new" method="POST">
-		<input type="hidden" name="project_id" value="<%= @project.id %>">
+	<form action="/projects/<%= @project.id %>/tasks/new" method="GET">
 		<input type="submit" value="Add Task">
-	</form> -->
+	</form>
 
 	<form action="/projects/<%= @project.id %>/edit" method="GET">
 		<input type="submit" value="Edit">		
