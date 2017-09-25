@@ -1,8 +1,8 @@
 class TaskController < ApplicationController
 	get '/projects/:project_id/tasks/new' do
   	if logged_in?
-  		# binding.pry
-  		
+  		@project = Project.find(params[:project_id])
+
       erb :'tasks/new'
     else
     	redirect "/"
@@ -10,13 +10,15 @@ class TaskController < ApplicationController
   end
 
   post '/projects/:project_id/tasks' do
-  	user = 
+  	project = Project.find(params[:project_id])
 
-  	user.tasks.build(name: params[:name], active_status: active_status)
+  	project.tasks.build(name: params[:task_name], time_allocation: params[:time_allocation])
 
-  	user.tasks.last.save
-
-  	redirect '/projects/:project_id'
+  	if project.tasks.last.save
+			redirect "/projects/#{params[:project_id]}"
+		else
+			erb :'tasks/new'
+		end
   end
 
   # get '/projects/:project_id/tasks/:id' do

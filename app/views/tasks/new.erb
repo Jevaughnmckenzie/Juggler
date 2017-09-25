@@ -1,8 +1,8 @@
 <h2>Create New Task</h2>
 
-<form action="/tasks" method="POST">
+<form action="/projects/<%= @project.id %>/tasks" method="POST">
 	<label for="task_name">Task</label>
-	<input type="text" name="name">
+	<input type="text" name="task_name">
 
 	<label for="time_allocation">Time Allocation</label>
 	<input type="text" name="time_allocation">
