@@ -8,11 +8,10 @@
 
 	<br>
 
-	<label for="active">Active</label>
-	<input type="radio" name="active" <%= 'checked' if @project.active? %>>
+	<h2>Status</h2>
+	<input type="radio" name="status" value="active" <%= 'checked' if @project.active_status == true %>>Active</input>
 
-	<label for="inactive">Inactive</label>
-	<input type="radio" name="inactive" <%= 'checked' if !@project.active? %>>
+	<input type="radio" name="status" value="inactive" <%= 'checked' if @project.active_status == false %>>Inactive</input>
 
 	<input type="submit" value="Edit Project">
 </form>

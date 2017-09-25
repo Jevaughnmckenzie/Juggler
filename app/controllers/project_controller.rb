@@ -5,8 +5,8 @@ class ProjectController < ApplicationController
   	if logged_in?
   	  user = current_user
 
-      @active_projects = user.projects.select { |project| project.active? }
-      @inactive_projects = user.projects.reject { |project| project.active? }
+      @active_projects = user.projects.select { |project| project.active_status }
+      @inactive_projects = user.projects.reject { |project| project.active_status }
 
       @projects = user.projects
       erb :'projects/index'
@@ -29,7 +29,7 @@ class ProjectController < ApplicationController
     
   	params[:active] == "on" ? active_status = true : active_status = false
 
-  	user.projects.build(name: params[:name], active?: active_status)
+  	user.projects.build(name: params[:name], active_status: active_status)
 
   	user.projects.last.save
 
@@ -60,7 +60,18 @@ class ProjectController < ApplicationController
   	project = Project.find(params[:id])
 
   	project.name = params[:name]
-  	params[:active] == "on" ? project.active == true : project.active == false
+  	binding.pry
+  	if params[:status] == "active"
+  		project.active_status = true 
+  	elsif params[:status] == "inactive"
+  		project.active_status = false
+  	end
+
+  	# if params[:status] == "on"
+  	# 	project.active_status = true
+  	# else
+  	# 	project.active_status = false
+  	# end
 
   	if project.save
   		redirect "/projects/#{project.id}"
@@ -69,6 +80,8 @@ class ProjectController < ApplicationController
   		erb :'projects/edit'
   	end
   end
+
+  
 
 
   
