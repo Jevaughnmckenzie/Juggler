@@ -13,7 +13,7 @@
 	<ul>
 		<% @project.tasks.each do |task| %>
 			<li>
-				<a href="/tasks/<%= task.id %>"><%= task.name %></a>
+				<%= task.name %>
 					<form action="/projects/<%= @project.id %>/tasks/<%= task.id %>/edit" method="GET">
 						<input type="submit" value="Edit">
 					</form>
