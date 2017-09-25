@@ -1,3 +1,5 @@
+require './config/environment'
+
 class TaskController < ApplicationController
 
 	get '/projects/:project_id/tasks/new' do
@@ -64,5 +66,9 @@ class TaskController < ApplicationController
 
   	redirect "/projects/#{params[:project_id]}"
   end
+
+  helpers do 
+		
+	end
 
 end

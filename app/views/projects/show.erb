@@ -14,11 +14,8 @@
 		<% @project.tasks.each do |task| %>
 			<li>
 				<%= task.name %> - <%= task.time_allocation %>
-					<%= project_edit_button %>
-					<form action="/projects/<%= @project.id %>/tasks/<%= task.id %>/delete" method="POST">
-						<input type="hidden" id="hidden" name="_method" value="delete">
-						<input type="submit" value="Delete Task">
-					</form>
+				<%= task_edit_button @project.id, task.id %>
+				<%= task_delete_button @project.id, task.id %>
 			</li>
 		<% end %>
 	</ul>

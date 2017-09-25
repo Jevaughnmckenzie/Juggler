@@ -1,4 +1,5 @@
 require './config/environment'
+
 class ProjectController < ApplicationController
   
   get '/projects' do
@@ -60,7 +61,6 @@ class ProjectController < ApplicationController
   	project = Project.find(params[:id])
 
   	project.name = params[:name]
-  	binding.pry
   	if params[:status] == "active"
   		project.active_status = true 
   	elsif params[:status] == "inactive"
@@ -89,19 +89,36 @@ class ProjectController < ApplicationController
   end
 
 	helpers do 
-		def project_edit_button
+		def project_edit_button(project_id)
 			<<-HTML
-				<form action="/projects/<%= project.id %>/edit" method="GET">
+				<form action="/projects/#{project_id}/edit" method="GET">
 					<input type="submit" value="Edit">
 				</form>
 			HTML
 		end
 
-		def project_delete_button
+		def project_delete_button(project_id)
 			<<-HTML
-				<form action="/projects/<%= project.id %>/delete" method="POST">
+				<form action="/projects/#{project_id}/delete" method="POST">
 					<input type="hidden" id="hidden" name="_method" value="delete">
 					<input type="submit" value="Delete">
+				</form>
+			HTML
+		end
+
+		def task_edit_button(project_id, task_id)
+			<<-HTML
+				<form action="/projects/#{project_id}/tasks/<%= task_id %>/edit" method="GET">
+					<input type="submit" value="Edit Task">
+				</form>
+			HTML
+		end
+
+		def task_delete_button(project_id, task_id)
+			<<-HTML
+				<form action="/projects/#{project_id}/tasks/<%= task_id %>/delete" method="POST">
+					<input type="hidden" id="hidden" name="_method" value="delete">
+					<input type="submit" value="Delete Task">
 				</form>
 			HTML
 		end

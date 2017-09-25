@@ -10,8 +10,8 @@ Hello World! Look at my projects!
 	<% @active_projects.each do |project| %>
       <li>
       	<a href="/projects/<%= project.id %>"><%= project.name %></a>
-				<%= project_edit_button %>
-				<%= project_delete_button %>
+				<%= project_edit_button project.id %>
+				<%= project_delete_button project.id %>
       </li>
 	<% end %>
 </ul>
@@ -22,8 +22,8 @@ Hello World! Look at my projects!
 	<% @inactive_projects.each do |project| %>
       <li>
       	<a href="/projects/<%= project.id %>"><%= project.name %></a>
-      	<%= project_edit_button %>
-				<%= project_delete_button %>
+      	<%= project_edit_button project.id %>
+				<%= project_delete_button project.id %>
       </li>
 	<% end %>
 </ul>
