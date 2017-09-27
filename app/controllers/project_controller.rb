@@ -54,6 +54,7 @@ class ProjectController < ApplicationController
   get '/projects/:id/edit' do
   	if logged_in?
   		@project = Project.find(params[:id])
+      binding.pry
       erb :'projects/edit'
     else
     	redirect '/'
@@ -61,13 +62,16 @@ class ProjectController < ApplicationController
   end
 
   patch '/projects/:id' do
-  	project = Project.find(params[:id])
+  	
+  	@project = Project.find(params[:id])
 
-  	project.name = params[:name]
+
+  	@project.name = params[:name]
+  	
   	if params[:status] == "active"
-  		project.active_status = true 
+  		@project.active_status = true 
   	elsif params[:status] == "inactive"
-  		project.active_status = false
+  		@project.active_status = false
   	end
 
   	# if params[:status] == "on"
@@ -76,10 +80,10 @@ class ProjectController < ApplicationController
   	# 	project.active_status = false
   	# end
 
-  	if project.save
+  	if @project.save
   		redirect "/projects/#{project.id}"
   	else
-  		@errors = project.errors
+  		@errors = @project.errors
   		erb :'projects/edit'
   	end
   end
