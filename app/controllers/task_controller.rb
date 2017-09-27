@@ -13,13 +13,16 @@ class TaskController < ApplicationController
   end
 
   post '/projects/:project_id/tasks' do
-  	project = Project.find(params[:project_id])
+  	@project = Project.find(params[:project_id])
 
-  	project.tasks.build(name: params[:task_name], time_allocation: params[:time_allocation])
+  	@project.tasks.build(name: params[:task_name], time_allocation: params[:time_allocation])
 
-  	if project.tasks.last.save
+    @task = @project.tasks.last
+
+  	if @task.save
 			redirect "/projects/#{params[:project_id]}"
 		else
+      @errors = @task.errors
 			erb :'tasks/new'
 		end
   end
@@ -47,15 +50,16 @@ class TaskController < ApplicationController
 
   patch '/projects/:project_id/tasks/:id' do
   	# project = Project.find(params[:project_id])
-  	task = Task.find(params[:id])
+  	@task = Task.find(params[:id])
 
-  	task.name = params[:task_name]
-  	task.time_allocation = params[:time_allocation]
+  	@task.name = params[:task_name]
+  	@task.time_allocation = params[:time_allocation]
 
-  	if task.save
+  	if @task.save
   		redirect "/projects/#{params[:project_id]}"
   	else
-  		# Set up error message
+      @project = Project.find(params[:project_id])
+  		@errors = @task.errors
   		erb :'tasks/edit'
   	end
   end

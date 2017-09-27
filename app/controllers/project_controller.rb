@@ -54,7 +54,7 @@ class ProjectController < ApplicationController
   get '/projects/:id/edit' do
   	if logged_in?
   		@project = Project.find(params[:id])
-      binding.pry
+    
       erb :'projects/edit'
     else
     	redirect '/'

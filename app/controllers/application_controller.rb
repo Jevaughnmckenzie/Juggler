@@ -86,5 +86,18 @@ class ApplicationController < Sinatra::Base
         nil
       end
   	end
+
+    def print_error_messages
+      <<-ERB
+        <% if @errors && @errors.any? %>
+          <% @errors.full_messages.each do |msg| %>
+            <ul>
+              <li><%= msg %></li>
+            </ul>
+          <% end %>
+        <% end %>
+      ERB
+    end
   end
+
 end
