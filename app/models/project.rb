@@ -3,4 +3,5 @@ class Project < ActiveRecord::Base
   has_many :tasks
 
   validates :name, presence: true
+  validates :active_status, presence: true
 end
