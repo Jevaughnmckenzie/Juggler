@@ -25,14 +25,15 @@ class ApplicationController < Sinatra::Base
 
   post '/signup' do
   	user = User.new(username: params[:username], password: params[:password])
-binding.pry
   	if user.save
-  	  binding.pry
+
   	  session[:user_id] = user.id
   	  # binding.pry
   	  redirect '/projects'
   	else
-  	  redirect '/signup'
+
+  		@errors = user.errors
+  	  erb :'registrations/signup'
   	end
   end
 
@@ -41,7 +42,7 @@ binding.pry
       # binding.pry
       redirect '/projects'
     else
-      erb erb :'sessions/login'
+      erb :'sessions/login'
     end
     
   end
@@ -49,12 +50,18 @@ binding.pry
   post '/login' do
     user = User.find_by(username: params[:username])
 
+    
+
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
 
       redirect '/projects'
+    elsif user.nil?
+    	@errors = ["No user exists by that name"]
+
+    	erb :'sessions/login' 
     else
-      @login_error = "Username or password is incorrect"
+      @errors = user.errors
 
       erb :'sessions/login'
     end

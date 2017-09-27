@@ -1,6 +1,12 @@
 <h1>Log In</h1>
 
-<%= @login_error %>
+<% if @errors && @errors.any? %>
+	<% @errors.full_messages.each do |msg| %>
+		<ul>
+			<li><%= msg %></li>
+		</ul>
+	<% end %>
+<% end %>
 
 
 <form action="/login" method="POST">

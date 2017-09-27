@@ -32,9 +32,12 @@ class ProjectController < ApplicationController
 
   	user.projects.build(name: params[:name], active_status: active_status)
 
-  	user.projects.last.save
-
-  	redirect '/projects'
+  	if user.projects.last.save
+  		redirect '/projects'
+  	else
+  		@errors = user.projects.last.errors
+  		erb :'projects/new'
+		end
   end
 
   get '/projects/:id' do
@@ -76,7 +79,7 @@ class ProjectController < ApplicationController
   	if project.save
   		redirect "/projects/#{project.id}"
   	else
-  		# Set up error message
+  		@errors = project.errors
   		erb :'projects/edit'
   	end
   end
@@ -108,7 +111,7 @@ class ProjectController < ApplicationController
 
 		def task_edit_button(project_id, task_id)
 			<<-HTML
-				<form action="/projects/#{project_id}/tasks/<%= task_id %>/edit" method="GET">
+				<form action="/projects/#{project_id}/tasks/#{task_id}/edit" method="GET">
 					<input type="submit" value="Edit Task">
 				</form>
 			HTML
@@ -116,7 +119,7 @@ class ProjectController < ApplicationController
 
 		def task_delete_button(project_id, task_id)
 			<<-HTML
-				<form action="/projects/#{project_id}/tasks/<%= task_id %>/delete" method="POST">
+				<form action="/projects/#{project_id}/tasks/#{task_id}/delete" method="POST">
 					<input type="hidden" id="hidden" name="_method" value="delete">
 					<input type="submit" value="Delete Task">
 				</form>
