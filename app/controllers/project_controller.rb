@@ -34,7 +34,7 @@ class ProjectController < ApplicationController
   	if params[:status] == "active"
   		project.active_status = true 
   	elsif params[:status] == "inactive"
-  		binding.pry
+
   		project.active_status = false
   	end
 
