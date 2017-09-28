@@ -6,8 +6,6 @@ class ProjectController < ApplicationController
   	if logged_in?
   	  user = current_user
 
-      @no_project_error = "Could not find project in your account"
-
       @active_projects = user.projects.select { |project| project.active_status }
       @inactive_projects = user.projects.reject { |project| project.active_status }
 
@@ -45,7 +43,12 @@ class ProjectController < ApplicationController
   get '/projects/:id' do
   	if logged_in?
   		
-      validate_access
+      if grant_project_access?
+        erb :'projects/show'
+      else
+        binding.pry
+        projects_index_setup
+      end
     else
     	redirect '/'
     end
@@ -54,8 +57,11 @@ class ProjectController < ApplicationController
   get '/projects/:id/edit' do
   	if logged_in?
   		
-      validate_access
-      erb :'projects/edit'
+      if grant_project_access?
+        erb :'projects/edit'
+      else
+        projects_index_setup
+      end
     else
     	redirect '/'
     end
@@ -96,13 +102,21 @@ class ProjectController < ApplicationController
 
 	helpers do
 
-    def validate_access
+    def projects_index_setup
+      user = current_user
+      @active_projects = user.projects.select { |project| project.active_status }
+      @inactive_projects = user.projects.reject { |project| project.active_status }        
+      @projects = user.projects
+      erb :'projects/index'
+    end
+
+    def grant_project_access?
       @project = Project.find(params[:id])
-      if current_user.projects.include?(@project)
-        erb :'projects/show'
+      if !current_user.projects.include?(@project)
+        @no_project_error = "Could not find project in your account"
+        false
       else
-        
-        redirect '/projects'
+        true
       end
     end
 

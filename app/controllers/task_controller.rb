@@ -72,7 +72,12 @@ class TaskController < ApplicationController
   end
 
   helpers do 
-		
+		def validate_task_access
+      @task = Task.find(params[:id])
+      unless current_user.tasks.include?(@task)    
+        redirect '/projects'
+      end
+    end
 	end
 
 end
