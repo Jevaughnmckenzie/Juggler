@@ -81,7 +81,7 @@ describe ApplicationController do
     end
 
     it 'does not let a logged in user see the sign up page' do
-      user2 = User.create(username: "user2", password: "password")
+      # user2 = User.create(username: "user2", password: "password")
       params = {
       	:username => "user2",
       	:password => "password"

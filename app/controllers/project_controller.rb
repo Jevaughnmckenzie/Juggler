@@ -28,11 +28,17 @@ class ProjectController < ApplicationController
   post '/projects' do
   	user = current_user
     
-  	params[:active] == "on" ? active_status = true : active_status = false
+    user.projects.build(name: params[:name])
+    project = user.projects.last
 
-  	user.projects.build(name: params[:name], active_status: active_status)
+  	if params[:status] == "active"
+  		project.active_status = true 
+  	elsif params[:status] == "inactive"
+  		binding.pry
+  		project.active_status = false
+  	end
 
-  	if user.projects.last.save
+  	if project.save
   		redirect '/projects'
   	else
   		@errors = user.projects.last.errors
@@ -86,7 +92,7 @@ class ProjectController < ApplicationController
   	# end
 
   	if @project.save
-  		redirect "/projects/#{project.id}"
+  		redirect "/projects/#{@project.id}"
   	else
   		@errors = @project.errors
   		erb :'projects/edit'
